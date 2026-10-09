@@ -1,51 +1,36 @@
-# 📦 Gestão Operacional de Vendas & Prevenção de Ruptura de Estoque
+# 🛒 Checkout Interativo: Atualização de Estoque & Cálculo em Tempo Real
 
-Solução criada para automatizar o processo de checkout, prevenir a venda de produtos indisponíveis (*overselling*) e garantir a integridade do saldo financeiro e de mercadorias.
-
----
-
-## 💼 O Problema de Negócio
-
-Em operações comerciais e de varejo, a falta de sincronia entre o ponto de venda e o estoque físico gera três gargalos críticos:
-
-1. **Vendas Sem Estoque (*Overselling*):** Vender itens indisponíveis causa insatisfação do cliente, custos operacionais com estornos e perda de reputação da marca.
-2. **Descentralização do Controle de Saldo:** A dependência de atualizações manuais no final do dia causa inconsistências entre o saldo informado e o saldo real de mercadorias.
-3. **Erros Humanos de Precificação:** O cálculo manual do valor total de pedidos aumenta a margem de erro no faturamento e na cobrança.
+Aplicação em Java desenvolvida para simular a operação imediata de um caixa/ponto de venda no terminal CLI.
 
 ---
 
-## 🎯 A Solução Operacional
+## ⚡ Como Funciona (Na Prática)
 
-A aplicação atua como uma **camada preventiva de validação de transações**, garantindo a saúde financeira e operacional do checkout através de 3 pilares:
+O fluxo é instantâneo e direto no terminal:
 
-### 1. Bloqueio Preventivo de Pedidos
-O sistema consulta o saldo em tempo real antes de autorizar qualquer cobrança. Caso o volume solicitado seja maior que a disponibilidade física, a operação é interrompida imediatamente, apresentando o saldo atual ao operador.
-
-### 2. Baixa Automática e Instantânea
-Ao confirmar uma transação válida, a mercadoria é abatida do saldo físico no mesmo instante, garantindo que o próximo atendimento consulte um estoque atualizado.
-
-### 3. Faturamento Preciso e Recibo Instantâneo
-O sistema consolida a multiplicação da quantidade pelo preço unitário e emite um resumo transparente com o status da operação, valor final e saldo remanescente.
+1. **Exibição Inicial:** O sistema mostra o produto, o preço unitário e o saldo em estoque.
+2. **Entrada do Usuário:** Você digita a quantidade desejada e pressiona `Enter`.
+3. **Processamento Instantâneo:** 
+   - **Cálculo Automático:** Multiplica a quantidade pelo preço unitário e exibe o valor total da compra.
+   - **Baixa Automática:** Abate as unidades do estoque em tempo real.
+   - **Validação de Segurança:** Se a quantidade digitada for maior que o saldo, o sistema bloqueia a venda e avisa que o estoque é insuficiente.
 
 ---
 
-## 📈 Impacto & Resultados de Negócio
+## 🖥️ Exemplo de Execução no Terminal
 
-* **Zero Falso Atendimento:** Garantia de que apenas vendas com capacidade de entrega sejam processadas.
-* **Redução de Custos Administrativos:** Eliminação da necessidade de estornos manuais e renegociações por falta de produto.
-* **Confiabilidade de Dados:** Informação de saldo sempre precisa para tomada de decisão de compras/reposição.
-
----
-
-## ⚙️ Fluxo Operacional da Aplicação
-
+### Cenário 1: Venda Concluída com Sucesso
 ```text
-[ Entrada do Pedido ] ➔ [ Validação de Saldo ] 
-                                 │
-           ┌─────────────────────┴─────────────────────┐
-           ▼                                           ▼
-[ Estoque Insuficiente ]                   [ Estoque Disponível ]
-           │                                           │
-  - Cancela transação                        - Calcula valor total
-  - Informa saldo restante                   - Executa baixa no estoque
-  - Protege a operação                       - Emite resumo de sucesso
+=== SISTEMA DE VENDAS E ESTOQUE ===
+Produto: Notebook Dell
+Preço: R$ 3500.0
+Estoque atual: 10 unidades
+
+Digite a quantidade que deseja comprar: 3
+
+--- RESULTADO DA OPERAÇÃO ---
+Venda concluída com sucesso!
+Produto: Notebook Dell
+Quantidade Vendida: 3
+Valor Total: R$ 10500.0
+Estoque Atualizado: 7 unidades.
